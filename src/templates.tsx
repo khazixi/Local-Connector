@@ -18,7 +18,7 @@ export const BaseLayout = (props: JSX.ElementChildrenAttribute) => (
 )
 
 export const Nav = () => (
-  <nav class=" m-2 p-4 border-b border-gray-200 w-full">
+  <nav class=" my-2 mx-8 p-4 shadow border-b border-gray-200 w-full">
     <ul class="list-none flex gap-4">
       <li> <div class="w-8 h-8 rounded-full bg-green-500"></div> </li>
       <li class="flex-grow"></li>
