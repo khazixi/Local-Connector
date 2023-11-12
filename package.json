@@ -3,10 +3,14 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.tsx",
+    "css": "bun tailwindcss -i src/input.css -o public/main.css --watch"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/html": "^0.7.3",
+    "@elysiajs/static": "^0.7.1",
+    "elysia": "latest",
+    "tailwindcss": "^3.3.5"
   },
   "devDependencies": {
     "bun-types": "latest"
