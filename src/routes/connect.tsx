@@ -13,6 +13,7 @@ conn.get('/', () => {
 
         <div class="grid grid-cols-3 gap-4">
           <PostPreview
+            id={1}
             class="bg-white h-32"
             title="Business Opens"
             author="Boba Shop Owner"
@@ -20,6 +21,7 @@ conn.get('/', () => {
           />
 
           <PostPreview
+            id={1}
             class="bg-white h-32"
             title="Farmer's Market"
             author="Jon Silver"
@@ -27,12 +29,14 @@ conn.get('/', () => {
           />
 
           <PostPreview
+            id={1}
             class="bg-white h-32"
             title="Party at Umass!"
             author="Alpha Beta Phi"
             description="Fall Celebration!"
           />
           <PostPreview
+            id={1}
             class="bg-white h-32"
             title="Business Opens"
             author="Boba Shop Owner"
@@ -40,6 +44,7 @@ conn.get('/', () => {
           />
 
           <PostPreview
+            id={1}
             class="bg-white h-32"
             title="Farmer's Market"
             author="Jon Silver"
@@ -47,6 +52,7 @@ conn.get('/', () => {
           />
 
           <PostPreview
+            id={1}
             class="bg-white h-32"
             title="Party at Umass!"
             author="Alpha Beta Phi"
@@ -62,6 +68,7 @@ conn.get('/:id', () => {
   return (
     <Base>
       <BaseLayout>
+        <Nav authenticated={false} />
         <PostView
           title="Some Title"
           author="Some Author"

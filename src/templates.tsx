@@ -2,7 +2,7 @@ export const Base = (props: JSX.ElementChildrenAttribute) => (
   <html lang='en'>
     <head>
       <title> Local Connector </title>
-      <link rel="stylesheet" href="main.css" />
+      <link rel="stylesheet" href="/main.css" />
     </head>
     <body hx-boost="true">
       {props.children}
@@ -66,16 +66,19 @@ export const Preview = (props: PreviewElements) => (
   </div>
 )
 
-export const PostPreview = (props: PreviewElements) => (
-  <div class={class_sanitizer("border shadow p-8 rounded-md hover:bg-gray-800 hover:text-white", props.class)}>
-    <h2 class="text-xl font-semibold"> {props.title} </h2>
-    <h3 class="text-md text-gray-700"> By {props.author} </h3>
-    <p class="text-sm text-gray-400"> {props.description} </p>
-  </div>
+export const PostPreview = (props: PreviewElements & { id: number }) => (
+  <a href="/connect/1">
+    <div class={class_sanitizer("border shadow p-8 rounded-md hover:bg-gray-800 hover:text-white", props.class)} >
+      <h2 class="text-xl font-semibold"> {props.title} </h2>
+      <h3 class="text-md text-gray-700"> By {props.author} </h3>
+      <p class="text-sm text-gray-400"> {props.description} </p>
+    </div>
+  </a>
 )
 
 export const PostView = (props: PostElements) => (
-  <div class="rounded-lg shadow border">
+  <div
+    class="rounded-lg shadow border">
     {
       props.image ?
         <img src="" />
