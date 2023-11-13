@@ -1,6 +1,6 @@
 import { Html, html } from "@elysiajs/html";
 import { Elysia } from "elysia";
-import { Base, BaseLayout, Preview } from "./templates";
+import { Base, BaseLayout, Nav, Preview } from "./templates";
 import { staticPlugin } from "@elysiajs/static";
 
 const app = new Elysia()
@@ -9,6 +9,7 @@ const app = new Elysia()
   .get("/", () => (
     <Base>
       <BaseLayout>
+        <Nav authenticated={false}></Nav>
         <div>
           <h1 class="text-8xl font-extrabold my-8 drop-shadow-lg"> Local Connector </h1>
           <h3 class="text-gray-400"> Connect with Your Local Area </h3>
