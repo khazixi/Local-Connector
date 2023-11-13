@@ -35,7 +35,7 @@ const app = new Elysia()
 
 
         <div class="grid grid-cols-3 gap-20 bg-blue-700 justify-center w-full h-96 p-4">
-          <h2 class="text-5xl text-white font-bold drop-shadow-sm col-span-3 text-center mt-8"> View Events </h2>
+          <h2 class="text-5xl text-white font-bold drop-shadow col-span-3 text-center mt-8"> View Events </h2>
           <Preview
             class="rotate-[351deg] bg-white h-32"
             title="Business Opens"
@@ -60,7 +60,7 @@ const app = new Elysia()
 
         <div class="w-full flex flex-col items-center gap-8">
           <h3 class='text-2xl drop-shadow-sm'> Start Connecting to your local community </h3>
-          <button class="text-xl bg-blue-600 text-white p-2 rounded-md shadow-sm"> Here! </button>
+          <a class="text-xl bg-blue-600 text-white p-2 rounded-md shadow-sm hover:bg-blue-700" href="/connect"> Here! </a>
         </div>
 
         <footer class="bg-white flex flex-col gap-8 p-8 justify-start w-full">
