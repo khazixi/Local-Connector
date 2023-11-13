@@ -4,7 +4,7 @@ export const Base = (props: JSX.ElementChildrenAttribute) => (
       <title> Local Connector </title>
       <link rel="stylesheet" href="main.css" />
     </head>
-    <body>
+    <body hx-boost="true">
       {props.children}
     </body>
   </html>
@@ -25,6 +25,9 @@ export const Nav = (props: NavProps) => (
     <ul class="list-none flex gap-4">
       <li> <div class="w-8 h-8 rounded-full bg-green-500"></div> </li>
       <li class="flex-grow"></li>
+      <li>
+        <a class="p-2 rounded-full bg-blue-300 hover:bg-blue-500 hover:text-white" href="#"> Connect </a>
+      </li>
 
       {
         props.authenticated ?
@@ -44,9 +47,7 @@ type PreviewElements = {
 }
 
 const class_sanitizer = (...classes: Array<string | undefined>) => {
-  return classes.reduce(
-    (prev, curr) => prev += (' ' + (curr ? curr : "")),
-    '')
+  return classes.reduce((prev, curr) => prev += (' ' + (curr ? curr : "")), '')
 }
 
 export const Preview = (props: PreviewElements) => (
