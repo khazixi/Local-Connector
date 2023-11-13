@@ -26,14 +26,17 @@ export const Nav = (props: NavProps) => (
       <li> <div class="w-8 h-8 rounded-full bg-green-500"></div> </li>
       <li class="flex-grow"></li>
       <li>
-        <a class="p-2 rounded-full bg-blue-300 hover:bg-blue-500 hover:text-white" href="#"> Connect </a>
+        <a class="p-2 rounded-full bg-blue-300 hover:bg-blue-500 hover:text-white" href="/"> Home </a>
+      </li>
+      <li>
+        <a class="p-2 rounded-full bg-blue-300 hover:bg-blue-500 hover:text-white" href="/connect"> Connect </a>
       </li>
 
       {
         props.authenticated ?
           <li> <a class="p-2 rounded-full bg-blue-300 hover:bg-blue-500 hover:text-white" href="#"> Sign Out </a> </li>
           :
-          <li> <a class="p-2 rounded-full bg-blue-300 hover:bg-blue-500 hover:text-white" href="#"> Sign In </a> </li>
+          <li> <a class="p-2 rounded-full bg-blue-300 hover:bg-blue-500 hover:text-white" href="/signin"> Sign In </a> </li>
       }
     </ul>
   </nav>

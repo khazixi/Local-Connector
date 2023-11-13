@@ -2,10 +2,16 @@ import { Html, html } from "@elysiajs/html";
 import { Elysia } from "elysia";
 import { Base, BaseLayout, Nav, Preview } from "./templates";
 import { staticPlugin } from "@elysiajs/static";
+import { conn } from './routes/connect'
+import { signin } from './routes/signin'
+import { signup } from './routes/signup'
 
 const app = new Elysia()
   .use(html())
   .use(staticPlugin({ prefix: '/' }))
+  .use(conn)
+  .use(signin)
+  .use(signup)
   .get("/", () => (
     <Base>
       <BaseLayout>
