@@ -60,7 +60,7 @@ const app = new Elysia()
 
         <div class="w-full flex flex-col items-center gap-8">
           <h3 class='text-2xl drop-shadow-sm'> Start Connecting to your local community </h3>
-          <a class="text-xl bg-blue-600 text-white p-2 rounded-md shadow-sm hover:bg-blue-700" href="/connect"> Here! </a>
+          <a class="text-xl bg-blue-600 text-white p-2 rounded-md shadow-md hover:bg-blue-700" href="/connect"> Here! </a>
         </div>
 
         <footer class="bg-white flex flex-col gap-8 p-8 justify-start w-full">

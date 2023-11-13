@@ -49,6 +49,11 @@ type PreviewElements = {
   class?: string
 }
 
+type PostElements = PreviewElements & {
+  image?: Blob
+  date: Date
+} & JSX.ElementChildrenAttribute
+
 const class_sanitizer = (...classes: Array<string | undefined>) => {
   return classes.reduce((prev, curr) => prev += (' ' + (curr ? curr : "")), '')
 }
@@ -58,5 +63,31 @@ export const Preview = (props: PreviewElements) => (
     <h2 class="text-xl font-semibold"> {props.title} </h2>
     <h3 class="text-md text-gray-700"> By {props.author} </h3>
     <p class="text-sm text-gray-400"> {props.description} </p>
+  </div>
+)
+
+export const PostPreview = (props: PreviewElements) => (
+  <div class={class_sanitizer("border shadow p-8 rounded-md hover:bg-gray-800 hover:text-white", props.class)}>
+    <h2 class="text-xl font-semibold"> {props.title} </h2>
+    <h3 class="text-md text-gray-700"> By {props.author} </h3>
+    <p class="text-sm text-gray-400"> {props.description} </p>
+  </div>
+)
+
+export const PostView = (props: PostElements) => (
+  <div class="rounded-lg shadow border">
+    {
+      props.image ?
+        <img src="" />
+        :
+        ""
+    }
+    <h2 class="text-3xl font-semibold"> {props.title} </h2>
+    <h3 class="text-lg text-gray-700"> By {props.author} </h3>
+    <h3 class="text-md text-gray-500">
+      {Intl.DateTimeFormat('en-US').format(props.date)}
+    </h3>
+    <p class="text-sm text-gray-700"> {props.description} </p>
+    {props.children}
   </div>
 )
