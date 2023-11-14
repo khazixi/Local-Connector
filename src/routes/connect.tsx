@@ -97,7 +97,7 @@ conn.get('/:id', async ({ params: { id } }) => {
 
   let image
   if (!d.image) image = null
-  else image = d.image.toString('base64')
+  else image = Buffer.from(d.image).toString('base64')
 
   return (
     <Base>
