@@ -5,6 +5,7 @@ import { staticPlugin } from "@elysiajs/static";
 import { conn } from './routes/connect'
 import { signin } from './routes/signin'
 import { signup } from './routes/signup'
+import { create } from './routes/create';
 
 const app = new Elysia()
   .use(html())
@@ -12,6 +13,7 @@ const app = new Elysia()
   .use(conn)
   .use(signin)
   .use(signup)
+  .use(create)
   .get("/", () => (
     <Base>
       <BaseLayout>
@@ -22,12 +24,12 @@ const app = new Elysia()
         </div>
 
         <div class="w-full p-8 drop-shadow-md">
-          <h2 class="text-6xl font-bold mb-8"> New Ways to Connect! </h2>
+          <h2 class="text-6xl font-bold mb-8 w-7/12"> New Ways to Connect! </h2>
 
           <p class="text-xl text-gray-600 w-7/12">
             In the modern world we are <b class="font-semibold text-gray-900"> Disconnected </b> from the people around us.
             We often know more about the world thousands of miles away than one thats just one.
-            At Local Connector we seek to provide people <b class="font-semibold text-gray-900">fun, informative, and intriguing</b> ways to connect
+            At Local Connector we seek to provide people <b class="font-semibold text-gray-900">fun, informative,</b> and <b class="font-semibold text-gray-900"> intriguing</b> ways to connect
             to the towns they are from.
           </p>
         </div>

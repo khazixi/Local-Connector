@@ -1,5 +1,9 @@
-import Elysia from "elysia";
+import Elysia, { t } from "elysia";
 import { Base, BaseLayout, Nav, PostPreview, PostView, Preview } from '../templates'
+import { db } from "../db";
+import { posts } from "../schema";
+import { eq } from "drizzle-orm";
+import { blobToB64 } from "../utils";
 
 export const conn = new Elysia({ prefix: '/connect' })
 
@@ -64,18 +68,32 @@ conn.get('/', () => {
   )
 })
 
-conn.get('/:id', () => {
+conn.get('/:id', async ({ params: { id } }) => {
+  const [d] = await db
+    .select()
+    .from(posts)
+    .where(eq(posts.id, id))
+
+  let image
+  if (!d.image) image = null
+  else image = d.image.toString('base64')
+
   return (
     <Base>
       <BaseLayout>
         <Nav authenticated={false} />
         <PostView
-          title="Some Title"
-          author="Some Author"
-          description="Some Description"
-          date={ new Date('3/11/04') }
+          image={image}
+          title={d.title}
+          author={d.author}
+          description={d.description}
+          date={new Date('3/11/04')}
         />
       </BaseLayout>
     </Base>
   )
+}, {
+  params: t.Object({
+    id: t.Numeric()
+  })
 })

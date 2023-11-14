@@ -50,7 +50,7 @@ type PreviewElements = {
 }
 
 type PostElements = PreviewElements & {
-  image?: Blob
+  image: string | null
   date: Date
 } & JSX.ElementChildrenAttribute
 
@@ -78,13 +78,8 @@ export const PostPreview = (props: PreviewElements & { id: number }) => (
 
 export const PostView = (props: PostElements) => (
   <div
-    class="rounded-lg shadow border">
-    {
-      props.image ?
-        <img src="" />
-        :
-        ""
-    }
+    class="rounded-lg shadow border flex flex-col gap-4 p-4 max-w-xl">
+    { props.image ? <img src={props.image} /> : "" }
     <h2 class="text-3xl font-semibold"> {props.title} </h2>
     <h3 class="text-lg text-gray-700"> By {props.author} </h3>
     <h3 class="text-md text-gray-500">

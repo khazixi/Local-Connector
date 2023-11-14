@@ -4,16 +4,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.tsx",
-    "css": "bun tailwindcss -i src/input.css -o public/main.css --watch"
+    "css": "bun run tailwindcss -i src/input.css -o public/main.css --watch",
+    "generate": "bun run drizzle-kit generate:sqlite"
   },
   "dependencies": {
     "@elysiajs/html": "^0.7.3",
     "@elysiajs/static": "^0.7.1",
+    "drizzle-orm": "^0.29.0",
     "elysia": "latest",
     "tailwindcss": "^3.3.5"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "^1.0.11",
+    "drizzle-kit": "^0.20.2"
   },
   "module": "src/index.js"
 }
