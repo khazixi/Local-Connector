@@ -7,7 +7,15 @@ import { blobToB64 } from "../utils";
 
 export const conn = new Elysia({ prefix: '/connect' })
 
-conn.get('/', () => {
+conn.get('/', async () => {
+  const p = await db
+    .select({
+      id: posts.id,
+      title: posts.title,
+      author: posts.author,
+      description: posts.description,
+    })
+    .from(posts)
   return (
     <Base>
       <BaseLayout>
@@ -16,6 +24,19 @@ conn.get('/', () => {
         <h1 class="text-6xl font-bold drop-shadow-md"> Connect </h1>
 
         <div class="grid grid-cols-3 gap-4">
+
+          {
+            p.map(post => (
+              <PostPreview
+                class="bg-white h-32"
+                id={post.id}
+                title={post.title}
+                author={post.author}
+                description={post.description}
+              />
+
+            ))
+          }
           <PostPreview
             id={1}
             class="bg-white h-32"

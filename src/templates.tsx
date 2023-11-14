@@ -67,7 +67,7 @@ export const Preview = (props: PreviewElements) => (
 )
 
 export const PostPreview = (props: PreviewElements & { id: number }) => (
-  <a href="/connect/1">
+  <a href={`/connect/${props.id}`}>
     <div class={class_sanitizer("border shadow p-8 rounded-md hover:bg-gray-800 hover:text-white", props.class)} >
       <h2 class="text-xl font-semibold"> {props.title} </h2>
       <h3 class="text-md text-gray-700"> By {props.author} </h3>
@@ -79,7 +79,7 @@ export const PostPreview = (props: PreviewElements & { id: number }) => (
 export const PostView = (props: PostElements) => (
   <div
     class="rounded-lg shadow border flex flex-col gap-4 p-4 max-w-xl">
-    { props.image ? <img src={props.image} /> : "" }
+    { props.image ? <img src={'data:image/png;base64,' + props.image} /> : "" }
     <h2 class="text-3xl font-semibold"> {props.title} </h2>
     <h3 class="text-lg text-gray-700"> By {props.author} </h3>
     <h3 class="text-md text-gray-500">
