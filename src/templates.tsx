@@ -124,13 +124,13 @@ type ErrorProps = {
 
 export const ErrorTemplate = (props: ErrorProps) => (
   <article class="flex flex-col rounded-md shadow-lg w-96 gap-8 mx-auto mt-28">
-    <header class="bg-red-300 basis-1/3 rounded-t-md">
+    <header class="bg-red-300 rounded-t-md h-12 flex flex-col justify-center items-center">
       <h1 class="text-red-700 font-extrabold text-2xl text-center"> An Error Occured </h1>
     </header>
 
-    <section class="flex flex-col gap-4 basis-2/3 p-4">
-      <h2 class="text-xl font-semibold"> Details </h2>
-      <p> Error: <b class="font-bold"> {props.error.message} </b></p>
+    <section class="flex flex-col gap-4 p-4">
+      <h2 class="text-xl font-semibold text-gray-800"> Details: </h2>
+      <p class="text-gray-600"> Error: <b class="font-bold text-black"> {props.error.message} </b></p>
     </section>
   </article>
 )
