@@ -3,7 +3,6 @@ import { Base, BaseLayout, Nav, PostPreview, PostView, Preview } from '../templa
 import { db } from "../db";
 import { posts } from "../schema";
 import { eq } from "drizzle-orm";
-import { blobToB64 } from "../utils";
 
 export const conn = new Elysia({ prefix: '/connect' })
 
@@ -58,6 +57,7 @@ conn.get('/:id', async ({ params: { id } }) => {
       <BaseLayout>
         <Nav authenticated={false} />
         <PostView
+          tag={d.type}
           image={image}
           title={d.title}
           author={d.author}
