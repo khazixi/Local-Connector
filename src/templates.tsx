@@ -54,7 +54,7 @@ type PreviewElements = {
 
 type PostElements = PreviewElements & {
   image: string | null
-  tag: string
+  tag: string | null
   date: Date
 } & JSX.ElementChildrenAttribute
 

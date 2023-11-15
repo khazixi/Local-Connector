@@ -18,3 +18,6 @@ signup.get('/', () => {
   )
 })
 
+signup.post('/', ({ set }) => {
+  set.redirect='/'
+})

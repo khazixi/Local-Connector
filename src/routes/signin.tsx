@@ -18,3 +18,6 @@ signin.get('/', () => {
   )
 })
 
+signin.post('/', ({ set }) => {
+  set.redirect='/'
+})
