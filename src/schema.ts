@@ -7,6 +7,7 @@ export const posts = sqliteTable('posts', {
   description: text('description').notNull(),
   date: text('date').notNull(),
   image: blob('image', { mode: 'buffer' }),
+  type: text('text'), // INFO: Should be either a jpeg or png
 })
 
 export const comments = sqliteTable('comments', {
@@ -16,4 +17,5 @@ export const comments = sqliteTable('comments', {
   description: text('description').notNull(),
   date: text('date').notNull(),
   image: blob('image', { mode: 'buffer' }),
+  type: text('text'), // INFO: Should be either a jpeg or png
 })

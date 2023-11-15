@@ -34,7 +34,10 @@ export const Nav = (props: NavProps) => (
 
       {
         props.authenticated ?
-          <li> <a class="p-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white" href="#"> Sign Out </a> </li>
+          <>
+            <li> <a class="p-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white" href="/create"> Create </a></li>
+            <li> <a class="p-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white" href="#"> Sign Out </a> </li>
+          </>
           :
           <li> <a class="p-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white" href="/signin"> Sign In </a> </li>
       }
@@ -51,6 +54,7 @@ type PreviewElements = {
 
 type PostElements = PreviewElements & {
   image: string | null
+  tag: string
   date: Date
 } & JSX.ElementChildrenAttribute
 
@@ -78,9 +82,9 @@ export const PostPreview = (props: PreviewElements & { id: number }) => (
 
 export const PostView = (props: PostElements) => (
   <div
-    class="rounded-lg shadow border flex flex-col gap-4 p-4 max-w-xl">
-    { props.image ? <img src={'data:image/png;base64,' + props.image} /> : "" }
-    <h2 class="text-3xl font-semibold"> {props.title} </h2>
+    class="rounded-lg shadow border flex flex-col gap-4 p-4 min-w-[256px] max-w-xl">
+    {props.image ? <img src={`data:${props.tag};base64,` + props.image} /> : ""}
+    <h2 class="text-3xl font-semibold text-center"> {props.title} </h2>
     <h3 class="text-lg text-gray-700"> By {props.author} </h3>
     <h3 class="text-md text-gray-500">
       {Intl.DateTimeFormat('en-US').format(props.date)}
@@ -88,4 +92,27 @@ export const PostView = (props: PostElements) => (
     <p class="text-sm text-gray-700"> {props.description} </p>
     {props.children}
   </div>
+)
+
+type AuthProps = {
+  route: string
+  desc: string
+  alt: string
+  altroute: string
+}
+
+export const AuthView = (props: AuthProps) => (
+  <form class="flex flex-col shadow-md gap-4 mt-32 p-4"
+    action={props.route} method="post">
+    <h1 class="text-2xl font-bold text-center"> {props.desc} </h1>
+    <label> Username </label>
+    <input type="text" class="border"/>
+    <label> Password </label>
+    <input type="password" class="border"/>
+    <div class="flex flex-row gap-2">
+      <button type="submit" class="bg-black text-white p-2 rounded hover:bg-green-500"> Submit </button>
+      <a class="bg-black text-white p-2 rounded hover:bg-red-500" href="/"> Back </a>
+      <a class="bg-black text-white p-2 rounded hover:bg-blue-500" href={props.altroute}> {props.alt} </a>
+    </div>
+  </form>
 )

@@ -37,52 +37,6 @@ conn.get('/', async () => {
 
             ))
           }
-          <PostPreview
-            id={1}
-            class="bg-white h-32"
-            title="Business Opens"
-            author="Boba Shop Owner"
-            description="We opened a new Boba shop in Peabody"
-          />
-
-          <PostPreview
-            id={1}
-            class="bg-white h-32"
-            title="Farmer's Market"
-            author="Jon Silver"
-            description="We have Black Corn at the Farmer's Market today"
-          />
-
-          <PostPreview
-            id={1}
-            class="bg-white h-32"
-            title="Party at Umass!"
-            author="Alpha Beta Phi"
-            description="Fall Celebration!"
-          />
-          <PostPreview
-            id={1}
-            class="bg-white h-32"
-            title="Business Opens"
-            author="Boba Shop Owner"
-            description="We opened a new Boba shop in Peabody"
-          />
-
-          <PostPreview
-            id={1}
-            class="bg-white h-32"
-            title="Farmer's Market"
-            author="Jon Silver"
-            description="We have Black Corn at the Farmer's Market today"
-          />
-
-          <PostPreview
-            id={1}
-            class="bg-white h-32"
-            title="Party at Umass!"
-            author="Alpha Beta Phi"
-            description="Fall Celebration!"
-          />
         </div>
       </BaseLayout>
     </Base>

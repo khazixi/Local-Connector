@@ -30,11 +30,13 @@ create.post('/', async ({ body, set }) => {
   const date = new Date()
 
   let image = null
+  let type = null
   if (typeof body.image === 'string') {
     image = null
   } else if (body.image === undefined) {
     image = null
   } else {
+    type = body.image.type
     image = Buffer.from(await body.image.arrayBuffer())
   }
 
@@ -46,7 +48,8 @@ create.post('/', async ({ body, set }) => {
         author: body.author,
         description: body.desc,
         date: (date).toISOString(),
-        image: image
+        image: image,
+        type: type
       })
   } catch (e) {
     return (
