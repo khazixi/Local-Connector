@@ -24,23 +24,23 @@ type NavProps = {
 export const Nav = (props: NavProps) => (
   <nav class=" my-2 mx-8 p-4 shadow border-b border-gray-200 w-full">
     <ul class="list-none flex gap-4">
-      <li> <div class="w-8 h-8 rounded bg-green-500"></div> </li>
+      <li> <div class="w-8 h-8 rounded bg-green-500 hover:border-2 hover:border-black"></div> </li>
       <li class="flex-grow"></li>
       <li>
-        <a class="p-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white" href="/"> Home </a>
+        <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/"> Home </a>
       </li>
       <li>
-        <a class="p-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white" href="/connect"> Connect </a>
+        <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/connect"> Connect </a>
       </li>
 
       {
         props.authenticated ?
           <>
-            <li> <a class="p-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white" href="/create"> Create </a></li>
-            <li> <a class="p-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white" href="#"> Sign Out </a> </li>
+            <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/create"> Create </a></li>
+            <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="#"> Sign Out </a> </li>
           </>
           :
-          <li> <a class="p-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white" href="/signin"> Sign In </a> </li>
+          <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/signin"> Sign In </a> </li>
       }
     </ul>
   </nav>
@@ -114,6 +114,7 @@ export const AuthView = (props: AuthProps) => (
     <input type="text" class="border"/>
     <label> Password </label>
     <input type="password" class="border"/>
+    <a href='/signin/google'> Sign in with Gooogle </a>
     <div class="flex flex-row gap-2">
       <button type="submit" class="bg-black text-white p-2 rounded hover:bg-green-500 basis-2/5"> Submit </button>
       <a class="bg-black text-white p-2 rounded hover:bg-red-500 basis-1/5 text-center" href="/"> Back </a>

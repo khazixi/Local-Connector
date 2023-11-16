@@ -1,9 +1,20 @@
 import Elysia from "elysia";
 import { AuthView, Base, BaseLayout, Nav } from '../templates'
+import { auth } from "../auth";
 
 export const signup = new Elysia({ prefix: 'signup' })
 
-signup.get('/', () => {
+signup.get('/', async (c) => {
+  const authRequest = auth.handleRequest(c)
+  const session = await authRequest.validate()
+  if (session) {
+    return new Response(null, {
+      headers: {
+        location: '/'
+      },
+      status: 302
+    })
+  }
   return (
     <Base>
       <BaseLayout>
@@ -19,5 +30,5 @@ signup.get('/', () => {
 })
 
 signup.post('/', ({ set }) => {
-  set.redirect='/'
+  set.redirect = '/'
 })
