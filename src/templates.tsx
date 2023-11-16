@@ -91,6 +91,10 @@ export const PostView = (props: PostElements) => (
       {Intl.DateTimeFormat('en-US').format(props.date)}
     </h3>
     <p class="text-sm text-gray-700"> {props.description} </p>
+    <div class="flex flex-row gap-2 items-stretch">
+      <a class="bg-black text-white hover:bg-red-500 p-2 basis-1/2" href="/connect"> Back </a>
+      <button class="bg-black text-white hover:bg-green-500 p-2 basis-1/2"> Comment </button>
+    </div>
     {props.children}
   </div>
 )
@@ -111,9 +115,9 @@ export const AuthView = (props: AuthProps) => (
     <label> Password </label>
     <input type="password" class="border"/>
     <div class="flex flex-row gap-2">
-      <button type="submit" class="bg-black text-white p-2 rounded hover:bg-green-500"> Submit </button>
-      <a class="bg-black text-white p-2 rounded hover:bg-red-500" href="/"> Back </a>
-      <a class="bg-black text-white p-2 rounded hover:bg-blue-500" href={props.altroute}> {props.alt} </a>
+      <button type="submit" class="bg-black text-white p-2 rounded hover:bg-green-500 basis-2/5"> Submit </button>
+      <a class="bg-black text-white p-2 rounded hover:bg-red-500 basis-1/5 text-center" href="/"> Back </a>
+      <a class="bg-black text-white p-2 rounded hover:bg-blue-500 basis-2/5 text-center" href={props.altroute}> {props.alt} </a>
     </div>
   </form>
 )
