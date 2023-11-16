@@ -3,6 +3,7 @@ export const Base = (props: JSX.ElementChildrenAttribute) => (
     <head>
       <title> Local Connector </title>
       <link rel="stylesheet" href="/main.css" />
+      <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </head>
     <body hx-boost="true">
       {props.children}
