@@ -43,7 +43,7 @@ export const Nav = (props: NavProps) => (
         props.authenticated ?
           <>
             <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/create"> Create </a></li>
-            <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" hx-post="/signout" hx-target="body"> Sign Out </a> </li>
+            <li> <a hx-refresh class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" hx-post="/signout" hx-target="body"> Sign Out </a> </li>
           </>
           :
           <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/signin"> Sign In </a> </li>
@@ -116,11 +116,27 @@ export const AuthView = (props: AuthProps) => (
   <form class="flex flex-col shadow-md gap-4 mt-32 p-4"
     action={props.route} method="post">
     <h1 class="text-2xl font-bold text-center"> {props.desc} </h1>
-    <label> Username </label>
-    <input type="text" class="border" />
-    <label> Password </label>
-    <input type="password" class="border" />
-    <a href='/signin/google'> Sign in with Gooogle </a>
+    <label for="email"> Email </label>
+    <input
+      name="email"
+      type="email"
+      class="border p-1 invalid:border-red-400 invalid:text-red-400 valid:border-gray-200 valid:text-gray-300 rounded"
+      hx-validate
+      required
+    />
+    <label for="passwod"> Password </label>
+    <input
+      name="password"
+      type="password"
+      class="border p-1 invalid:border-red-400 invalid:text-red-400 valid:border-gray-200 valid:text-gray-300 rounded"
+      required
+      hx-validate
+      minlength={8}
+    />
+    <a hx-boost="false" href='/signin/google' class="border p-1 border-black rounded hover:text-green-600 hover:border-green-600">
+      <svg class="inline-block align-sub mr-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M3.064 7.51A9.996 9.996 0 0 1 12 2c2.695 0 4.959.991 6.69 2.605l-2.867 2.868C14.786 6.482 13.468 5.977 12 5.977c-2.605 0-4.81 1.76-5.595 4.123c-.2.6-.314 1.24-.314 1.9c0 .66.114 1.3.314 1.9c.786 2.364 2.99 4.123 5.595 4.123c1.345 0 2.49-.355 3.386-.955a4.6 4.6 0 0 0 1.996-3.018H12v-3.868h9.418c.118.654.182 1.336.182 2.045c0 3.046-1.09 5.61-2.982 7.35C16.964 21.105 14.7 22 12 22A9.996 9.996 0 0 1 2 12c0-1.614.386-3.14 1.064-4.49Z"/></svg>
+      Sign in with Gooogle
+    </a>
     <div class="flex flex-row gap-2">
       <button type="submit" class="bg-black text-white p-2 rounded hover:bg-green-500 basis-2/5"> Submit </button>
       <a class="bg-black text-white p-2 rounded hover:bg-red-500 basis-1/5 text-center" href="/"> Back </a>
