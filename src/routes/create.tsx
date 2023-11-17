@@ -78,7 +78,7 @@ create.post('/', async (c) => {
       .insert(posts)
       .values({
         title: c.body.title,
-        author: session.user.googleUsername,
+        author: session.user.username,
         description: c.body.desc,
         date: (date).toISOString(),
         image: image,

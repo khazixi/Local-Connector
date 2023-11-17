@@ -22,7 +22,12 @@ export const comments = sqliteTable('comments', {
 
 export const user = sqliteTable('user', {
   id: text('id').primaryKey(),
-  username: text('username').notNull()
+  // NOTE: Fields below should be nullable because 
+  // The user either has a username or has an email
+  // not both (yet)
+  username: text('username'),
+  email: text('email'),
+  verified: integer('verified'),
 })
 
 export const session = sqliteTable("session", {

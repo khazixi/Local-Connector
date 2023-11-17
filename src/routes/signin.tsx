@@ -1,4 +1,4 @@
-import Elysia from "elysia";
+import Elysia, { t } from "elysia";
 import { AuthView, Base, BaseLayout, Nav } from '../templates'
 import { auth, googleAuth } from "../auth";
 import { parseCookie, serializeCookie } from "lucia/utils";
@@ -22,6 +22,15 @@ export const signin = new Elysia({ prefix: '/signin' })
   })
   .post('/', ({ set }) => {
     set.redirect = '/'
+  }, {
+    type: 'application/x-www-form-urlencoded',
+    body: t.Object({
+      email: t.String({ format: 'email' }),
+      password: t.String({
+        minLength: 8,
+        maxLength: 64
+      })
+    })
   })
   .get('/google', async () => {
     const [url, state] = await googleAuth.getAuthorizationUrl()
