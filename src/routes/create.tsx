@@ -23,44 +23,63 @@ create.get('/', async (c) => {
     <Base>
       <BaseLayout>
         <Nav authenticated={authenticated} />
-        <form action="/create" method='POST' class='flex flex-col' enctype='multipart/form-data'>
+        <form action="/create" method='POST' class='flex flex-col gap-4' enctype='multipart/form-data'>
           <h1 class='text-4xl'> Create a new post </h1>
           <label for="title"> Title </label>
-          <input type="text" name="title" />
-          <label for='author'> Author </label>
-          <input type='text' name='author' />
+          <input
+            type="text"
+            class="border invalid:border-red-400 invalid:text-red-400 valid:border-gray-200 valid:text-gray-300 rounded"
+            name="title"
+            required
+            hx-validate
+          />
           <label for='desc'> Description </label>
-          <input type='text' name='desc' />
+          <input
+            type='text'
+            class="border invalid:border-red-400 invalid:text-red-400 valid:border-gray-200 valid:text-gray-300 rounded"
+            name='desc'
+            required
+            hx-validate
+          />
           <label for='image'> Image </label>
-          <input type='file' name='image' />
-          <button type="submit"> Submit </button>
+          <input type='file' class="border invalid:border-red-400 invalid:text-red-400 valid:border-gray-200 valid:text-gray-300 rounded" name='image' />
+          <button type="submit" class="bg-black text-white p-2 rounded"> Submit </button>
         </form>
       </BaseLayout>
     </Base>
   )
 })
 
-create.post('/', async ({ body, set }) => {
+create.post('/', async (c) => {
+
+  const authRequest = auth.handleRequest(c)
+  const session = await authRequest.validate()
+
+  if (!session) {
+    c.set.status = 401
+    throw new Error('Not Authenticated')
+  }
+
   const date = new Date()
 
   let image = null
   let type = null
-  if (typeof body.image === 'string') {
+  if (typeof c.body.image === 'string') {
     image = null
-  } else if (body.image === undefined) {
+  } else if (c.body.image === undefined) {
     image = null
   } else {
-    type = body.image.type
-    image = Buffer.from(await body.image.arrayBuffer())
+    type = c.body.image.type
+    image = Buffer.from(await c.body.image.arrayBuffer())
   }
 
   try {
     await db
       .insert(posts)
       .values({
-        title: body.title,
-        author: body.author,
-        description: body.desc,
+        title: c.body.title,
+        author: session.user.googleUsername,
+        description: c.body.desc,
         date: (date).toISOString(),
         image: image,
         type: type
@@ -71,15 +90,14 @@ create.post('/', async ({ body, set }) => {
     )
   }
 
-  set.redirect = '/'
+  c.set.redirect = '/'
 }
   , {
     type: 'multipart/form-data',
     body: t.Object({
       title: t.String(),
-      author: t.String(),
       desc: t.String(),
-      image: t.Union([t.String(), t.File()])
+      image: t.Optional(t.Union([t.String(), t.File()]))
     })
   }
 )
