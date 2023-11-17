@@ -98,7 +98,7 @@ export const PostView = (props: PostElements) => (
     </h3>
     <p class="text-sm text-gray-700"> {props.description} </p>
     <div class="flex flex-row gap-2 items-stretch">
-      <a class="bg-black text-white hover:bg-red-500 p-2 basis-1/2" href="/connect"> Back </a>
+      <a class="bg-black text-white hover:bg-red-500 p-2 basis-1/2 text-center" href="/connect"> Back </a>
       <button class="bg-black text-white hover:bg-green-500 p-2 basis-1/2"> Comment </button>
     </div>
     {props.children}
