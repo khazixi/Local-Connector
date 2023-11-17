@@ -25,7 +25,12 @@ type NavProps = {
 export const Nav = (props: NavProps) => (
   <nav class=" my-2 mx-8 p-4 shadow border-b border-gray-200 w-full">
     <ul class="list-none flex  flex-row gap-4">
-      <li> <div class="w-8 h-8 rounded bg-green-500 hover:border-2 hover:border-black"></div> </li>
+      {
+        props.authenticated ?
+          <li> <div class="w-8 h-8 rounded bg-green-500 hover:border-2 hover:border-black"></div> </li>
+          :
+          ""
+      }
       <li class="flex-grow"></li>
       <li>
         <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/"> Home </a>
@@ -112,9 +117,9 @@ export const AuthView = (props: AuthProps) => (
     action={props.route} method="post">
     <h1 class="text-2xl font-bold text-center"> {props.desc} </h1>
     <label> Username </label>
-    <input type="text" class="border"/>
+    <input type="text" class="border" />
     <label> Password </label>
-    <input type="password" class="border"/>
+    <input type="password" class="border" />
     <a href='/signin/google'> Sign in with Gooogle </a>
     <div class="flex flex-row gap-2">
       <button type="submit" class="bg-black text-white p-2 rounded hover:bg-green-500 basis-2/5"> Submit </button>
