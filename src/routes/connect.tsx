@@ -3,10 +3,15 @@ import { Base, BaseLayout, Nav, PostPreview, PostView, Preview } from '../templa
 import { db } from "../db";
 import { posts } from "../schema";
 import { eq } from "drizzle-orm";
+import { auth } from "../auth";
 
 export const conn = new Elysia({ prefix: '/connect' })
 
-conn.get('/', async () => {
+conn.get('/', async (c) => {
+  const authRequest = auth.handleRequest(c)
+  const session = await authRequest.validate()
+
+  const authenticated = !!session
   const p = await db
     .select({
       id: posts.id,
@@ -18,7 +23,7 @@ conn.get('/', async () => {
   return (
     <Base>
       <BaseLayout>
-        <Nav authenticated={false} />
+        <Nav authenticated={authenticated} />
 
         <h1 class="text-6xl font-bold drop-shadow-md"> Connect </h1>
 
@@ -42,11 +47,16 @@ conn.get('/', async () => {
   )
 })
 
-conn.get('/:id', async ({ params: { id } }) => {
+conn.get('/:id', async (c) => {
+  const authRequest = auth.handleRequest(c)
+  const session = await authRequest.validate()
+
+  const authenticated = !!session
+
   const [d] = await db
     .select()
     .from(posts)
-    .where(eq(posts.id, id))
+    .where(eq(posts.id, c.params.id))
 
   let image
   if (!d.image) image = null
@@ -55,7 +65,7 @@ conn.get('/:id', async ({ params: { id } }) => {
   return (
     <Base>
       <BaseLayout>
-        <Nav authenticated={false} />
+        <Nav authenticated={authenticated} />
         <PostView
           tag={d.type}
           image={image}

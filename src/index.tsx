@@ -6,6 +6,8 @@ import { conn } from './routes/connect'
 import { signin } from './routes/signin'
 import { signup } from './routes/signup'
 import { create } from './routes/create';
+import { signout } from './routes/signout';
+import { auth } from "./auth";
 
 const app = new Elysia()
   .use(html())
@@ -14,19 +16,26 @@ const app = new Elysia()
   .use(signin)
   .use(signup)
   .use(create)
+  .use(signout)
   .onError(({ error, code, set }) => {
     set.headers['content-type'] = 'text/html'
     return (<Base>
-      <ErrorTemplate 
+      <ErrorTemplate
         code={code}
         error={error}
       />
     </Base>)
-    })
-  .get("/", () => (
+  })
+  .get("/", async (c) => {
+    const authRequest = auth.handleRequest(c)
+    const session =  await authRequest.validate()
+
+    const authenticated = !!session
+
+    return (
       <Base>
         <BaseLayout>
-          <Nav authenticated={false}></Nav>
+          <Nav authenticated={authenticated}></Nav>
           <div>
             <h1 class="text-8xl font-extrabold my-8 drop-shadow-lg"> Local Connector </h1>
             <h3 class="text-gray-400"> Connect with Your Local Area </h3>
@@ -80,7 +89,8 @@ const app = new Elysia()
           </footer>
         </BaseLayout>
       </Base>
-    ))
+    )
+  })
 
 app.listen(Bun.env.PORT)
 

@@ -90,9 +90,10 @@ export const signin = new Elysia({ prefix: '/signin' })
       }
       set.redirect = '/'
     } catch (e) {
-      if (e instanceof OAuthRequestError) {
+      if (e instanceof Error) {
         console.log(e.message)
-        return new Response(null, { status: 400 })
+        throw e
+        // return new Response(null, { status: 400 })
       }
       console.log('An Unknown Error Occured')
       console.log(e.message)

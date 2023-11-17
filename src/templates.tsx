@@ -4,6 +4,7 @@ export const Base = (props: JSX.ElementChildrenAttribute) => (
       <title> Local Connector </title>
       <link rel="stylesheet" href="/main.css" />
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+      <script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
     </head>
     <body hx-boost="true">
       {props.children}
@@ -23,7 +24,7 @@ type NavProps = {
 
 export const Nav = (props: NavProps) => (
   <nav class=" my-2 mx-8 p-4 shadow border-b border-gray-200 w-full">
-    <ul class="list-none flex gap-4">
+    <ul class="list-none flex  flex-row gap-4">
       <li> <div class="w-8 h-8 rounded bg-green-500 hover:border-2 hover:border-black"></div> </li>
       <li class="flex-grow"></li>
       <li>
@@ -37,7 +38,7 @@ export const Nav = (props: NavProps) => (
         props.authenticated ?
           <>
             <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/create"> Create </a></li>
-            <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="#"> Sign Out </a> </li>
+            <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" hx-post="/signout" hx-target="body"> Sign Out </a> </li>
           </>
           :
           <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/signin"> Sign In </a> </li>
