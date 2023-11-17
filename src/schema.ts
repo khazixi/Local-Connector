@@ -19,3 +19,24 @@ export const comments = sqliteTable('comments', {
   image: blob('image', { mode: 'buffer' }),
   type: text('text'), // INFO: Should be either a jpeg or png
 })
+
+export const user = sqliteTable('user', {
+  id: text('id').primaryKey(),
+  username: text('username').notNull()
+})
+
+export const session = sqliteTable("session", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull().references(() => user.id),
+  activeExpires: blob("active_expires", { mode: "bigint" })
+    .notNull(),
+  idleExpires: blob("idle_expires", { mode: "bigint" })
+    .notNull()
+})
+
+export const key = sqliteTable("key", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull()
+    .references(() => user.id),
+  hashedPassword: text("hashed_password")
+})

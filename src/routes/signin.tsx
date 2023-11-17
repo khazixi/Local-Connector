@@ -46,39 +46,49 @@ export const signin = new Elysia({ prefix: '/signin' })
     const state = url.searchParams.get('state')
     const code = url.searchParams.get('code')
 
+
     if (!storedState || !state || storedState !== state || !code) {
-      return new Response(null, {
-        status: 400
-      })
+      set.status = 400
+      return null
     }
 
     try {
+      console.log('Entering Try')
       let user: User | null = null
       const { getExistingUser, googleUser, createUser } = await googleAuth.validateCallback(code)
 
+      console.log('Validated Callback')
       const existingUser = await getExistingUser()
-      if (existingUser) user = existingUser
-      else user = await createUser({
-        attributes: {
-          username: googleUser.name
-        }
-      })
+      console.log('Retrieved initial user: ', existingUser)
+      if (existingUser) {
+        user = existingUser
+      } else {
+        user = await createUser({
+          attributes: {
+            username: googleUser.name
+          }
+        })
+      }
+      console.log('User: ', user)
+
+      console.log('Checked User')
 
       const session = await auth.createSession({
         userId: user.userId,
         attributes: {}
       })
 
+      console.log('Creating Session')
+
       const sessionCookie = auth.createSessionCookie(session)
       // console.log('cookie', sessionCookie)
       // console.log('serialized cookie', sessionCookie.serialize())
-      return new Response(null, {
-        headers: {
-          location: '/',
-          'Set-Cookie': sessionCookie.serialize()
-        },
-        status: 302
-      })
+      console.log('Setting Cookies')
+      set.status = 302
+      set.headers = {
+        "Set-Cookie": sessionCookie.serialize()
+      }
+      set.redirect = '/'
     } catch (e) {
       if (e instanceof OAuthRequestError) {
         console.log(e.message)
