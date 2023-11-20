@@ -34,13 +34,13 @@ create.get('/', async (c) => {
             hx-validate
           />
           <label for='desc'> Description </label>
-          <input
-            type='text'
+          <textarea
             class="border invalid:border-red-400 invalid:text-red-400 valid:border-gray-200 valid:text-gray-300 rounded"
             name='desc'
             required
             hx-validate
-          />
+          >
+          </textarea>
           <label for='image'> Image </label>
           <input type='file' class="border invalid:border-red-400 invalid:text-red-400 valid:border-gray-200 valid:text-gray-300 rounded" name='image' />
           <button type="submit" class="bg-black text-white p-2 rounded"> Submit </button>

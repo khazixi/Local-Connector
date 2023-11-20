@@ -2,7 +2,11 @@
 declare namespace Lucia {
 	type Auth = import("./auth.js").Auth;
 	type DatabaseUserAttributes = {
-		username: string;
+		username?: string;
+    email?: string;
+    verified?: boolean
 	};
 	type DatabaseSessionAttributes = {};
 }
+
+// TODO: Add more complex type logic DatabaseUserAttributes?

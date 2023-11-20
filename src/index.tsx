@@ -4,7 +4,6 @@ import { Base, BaseLayout, ErrorTemplate, Nav, Preview } from "./templates";
 import { staticPlugin } from "@elysiajs/static";
 import { conn } from './routes/connect'
 import { signin } from './routes/signin'
-import { signup } from './routes/signup'
 import { create } from './routes/create';
 import { signout } from './routes/signout';
 import { auth } from "./auth";
@@ -14,7 +13,6 @@ const app = new Elysia()
   .use(staticPlugin({ prefix: '/' }))
   .use(conn)
   .use(signin)
-  .use(signup)
   .use(create)
   .use(signout)
   .onError(({ error, code, set }) => {

@@ -1,27 +1,35 @@
 import Elysia, { t } from "elysia";
-import { AuthView, Base, BaseLayout, Nav } from '../templates'
+import { AuthView, Base, BaseLayout, Nav, SignupView } from '../templates'
 import { auth, googleAuth } from "../auth";
 import { parseCookie, serializeCookie } from "lucia/utils";
 import { OAuthRequestError } from "@lucia-auth/oauth";
 import type { User } from "lucia";
+import { ADDRGETNETWORKPARAMS } from "dns";
 
 export const signin = new Elysia({ prefix: '/signin' })
   .get('/', async () => {
     return (
       <Base>
         <BaseLayout>
-          <AuthView
-            route="/signin"
-            desc="Sign In"
-            alt="Sign Up"
-            altroute="/signup"
-          />
+          <SignupView />
         </BaseLayout>
       </Base>
     )
   })
-  .post('/', ({ set }) => {
+  .post('/', async ({ set, body }) => {
+    const key = await auth.useKey('email', body.email.toLowerCase(), body.password)
+    const session = await auth.createSession({
+      userId: key.userId,
+      attributes: {}
+    })
+
+    const sessionCookie = auth.createSessionCookie(session)
+    set.status = 302
     set.redirect = '/'
+    set.headers = {
+      "Set-Cookie": sessionCookie.serialize()
+    }
+    return null
   }, {
     type: 'application/x-www-form-urlencoded',
     body: t.Object({

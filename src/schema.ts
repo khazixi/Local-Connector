@@ -25,9 +25,9 @@ export const user = sqliteTable('user', {
   // NOTE: Fields below should be nullable because 
   // The user either has a username or has an email
   // not both (yet)
-  username: text('username'),
+  username: text('username').notNull(),
   email: text('email'),
-  verified: integer('verified'),
+  verified: integer('verified', {mode: 'boolean'}),
 })
 
 export const session = sqliteTable("session", {
@@ -44,4 +44,10 @@ export const key = sqliteTable("key", {
   userId: text("user_id").notNull()
     .references(() => user.id),
   hashedPassword: text("hashed_password")
+})
+
+export const tokens = sqliteTable('tokens', {
+  id: text('id').notNull(),
+  expires: blob('expires', { mode: 'bigint' }).primaryKey(),
+  userId: text("user_id").notNull().references(() => user.id),
 })
