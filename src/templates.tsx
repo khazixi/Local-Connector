@@ -1,3 +1,5 @@
+import { Posts } from "./schema"
+
 export const Base = (props: JSX.ElementChildrenAttribute) => (
   <html lang='en'>
     <head>
@@ -27,29 +29,33 @@ export const Nav = (props: NavProps) => (
     <ul class="list-none flex  flex-row gap-4">
       {
         props.authenticated ?
-          <li> <div class="w-8 h-8 rounded bg-green-500 hover:border-2 hover:border-black"></div> </li>
-          :
-          ""
+          <li>
+            <a href="/profile">
+              <div class="w-8 h-8 rounded bg-green-500 hover:border-2 hover:border-black"></div>
+            </a>
+          </li>
+    :
+    ""
       }
-      <li class="flex-grow"></li>
-      <li>
-        <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/"> Home </a>
-      </li>
-      <li>
-        <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/connect"> Connect </a>
-      </li>
+    <li class="flex-grow"></li>
+    <li>
+      <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/"> Home </a>
+    </li>
+    <li>
+      <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/connect"> Connect </a>
+    </li>
 
-      {
-        props.authenticated ?
-          <>
-            <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/create"> Create </a></li>
-            <li> <a hx-refresh class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" hx-post="/signout" hx-target="body"> Sign Out </a> </li>
-          </>
-          :
-          <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/signin"> Sign In </a> </li>
-      }
-    </ul>
-  </nav>
+    {
+      props.authenticated ?
+        <>
+          <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/create"> Create </a></li>
+          <li> <a hx-refresh class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" hx-post="/signout" hx-target="body"> Sign Out </a> </li>
+        </>
+        :
+        <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/signin"> Sign In </a> </li>
+    }
+  </ul>
+  </nav >
 )
 
 type PreviewElements = {
@@ -176,4 +182,28 @@ export const ErrorTemplate = (props: ErrorProps) => (
       <p class="text-gray-600"> Error: <b class="font-bold text-black"> {props.error.message} </b></p>
     </section>
   </article>
+)
+
+// {Intl.DateTimeFormat('en-US').format(props.date)}
+export const PostEditableView = (props: Posts) => (
+  <section
+    class="rounded-lg shadow border flex flex-col gap-4 p-4 min-w-[256px] max-w-xl">
+    {props.image ? <img src={`data:${props.type};base64,` + Buffer.from(props.image).toString('base64')} /> : ""}
+    <h2 class="text-3xl font-semibold text-center"> {props.title} </h2>
+    <h3 class="text-lg text-gray-700"> By {props.author} </h3>
+    <h3 class="text-md text-gray-500">
+      {props.date}
+    </h3>
+    <p class="text-sm text-gray-700"> {props.description} </p>
+    <div class="flex flex-row gap-2 items-stretch">
+      <a class="bg-black text-white hover:bg-red-500 p-2 basis-1/2 text-center" href="/connect"> Back </a>
+      <button
+        hx-delete={`/profile/${props.id}`}
+        hx-target="closest section"
+        hx-swap="outerHTML"
+        class="bg-black text-white hover:bg-green-500 p-2 basis-1/2">
+        Delete
+      </button>
+    </div>
+  </section>
 )

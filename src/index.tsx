@@ -6,6 +6,7 @@ import { conn } from './routes/connect'
 import { signin } from './routes/signin'
 import { create } from './routes/create';
 import { signout } from './routes/signout';
+import { profile } from './routes/profile';
 import { auth } from "./auth";
 
 const app = new Elysia()
@@ -15,6 +16,7 @@ const app = new Elysia()
   .use(signin)
   .use(create)
   .use(signout)
+  .use(profile)
   .onError(({ error, code, set }) => {
     set.headers['content-type'] = 'text/html'
     return (<Base>

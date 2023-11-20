@@ -16,30 +16,6 @@ export const signin = new Elysia({ prefix: '/signin' })
       </Base>
     )
   })
-  .post('/', async ({ set, body }) => {
-    const key = await auth.useKey('email', body.email.toLowerCase(), body.password)
-    const session = await auth.createSession({
-      userId: key.userId,
-      attributes: {}
-    })
-
-    const sessionCookie = auth.createSessionCookie(session)
-    set.status = 302
-    set.redirect = '/'
-    set.headers = {
-      "Set-Cookie": sessionCookie.serialize()
-    }
-    return null
-  }, {
-    type: 'application/x-www-form-urlencoded',
-    body: t.Object({
-      email: t.String({ format: 'email' }),
-      password: t.String({
-        minLength: 8,
-        maxLength: 64
-      })
-    })
-  })
   .get('/google', async () => {
     const [url, state] = await googleAuth.getAuthorizationUrl()
     const stateCookie = serializeCookie('google_oauth_state', state, {

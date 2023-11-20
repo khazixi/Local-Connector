@@ -1,5 +1,5 @@
-import Elysia from "elysia"
-import { Base, BaseLayout, Nav } from '../templates'
+import Elysia, { t } from "elysia"
+import { Base, BaseLayout, Nav, PostEditableView } from '../templates'
 import { auth } from "../auth";
 import { db } from "../db";
 import { posts } from '../schema'
@@ -16,17 +16,44 @@ export const profile = new Elysia({ prefix: '/profile' })
       return 'Not Authenticated'
     }
 
-    const post = db
+    const post = await db
       .select()
       .from(posts)
-      .where(eq(posts.author, session.user.username))
+      .where(
+        eq(posts.author, session.user.username!)
+      )
 
     const authenticated = !!session
     return (
       <Base>
         <BaseLayout>
           <Nav authenticated={authenticated} />
+          {
+            post.map(v => <PostEditableView {...v} />)
+          }
         </BaseLayout>
       </Base>
     )
+  })
+  .delete('/:id', async (c) => {
+    const authRequest = auth.handleRequest(c)
+    const session = await authRequest.validate()
+
+    if (!session) {
+      c.set.redirect = '/'
+      c.set.status = 401
+      return 'Not Authenticated'
+    }
+
+    await db
+      .delete(posts)
+      .where(
+        eq(posts.id, c.params.id)
+      )
+
+    return ""
+  }, {
+    params: t.Object({
+      id: t.Numeric()
+      })
   })

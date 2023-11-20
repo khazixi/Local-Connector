@@ -1,3 +1,4 @@
+import { InferSelectModel } from 'drizzle-orm'
 import { blob, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const posts = sqliteTable('posts', {
@@ -51,3 +52,5 @@ export const tokens = sqliteTable('tokens', {
   expires: blob('expires', { mode: 'bigint' }).primaryKey(),
   userId: text("user_id").notNull().references(() => user.id),
 })
+
+export type Posts = InferSelectModel<typeof posts>
