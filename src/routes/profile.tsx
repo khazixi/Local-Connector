@@ -28,6 +28,7 @@ export const profile = new Elysia({ prefix: '/profile' })
       <Base>
         <BaseLayout>
           <Nav authenticated={authenticated} />
+          <h1 class="text-6xl font-bold drop-shadow-md">Profile</h1>
           {
             post.map(v => <PostEditableView {...v} />)
           }
@@ -55,5 +56,5 @@ export const profile = new Elysia({ prefix: '/profile' })
   }, {
     params: t.Object({
       id: t.Numeric()
-      })
+    })
   })

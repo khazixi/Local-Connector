@@ -34,27 +34,27 @@ export const Nav = (props: NavProps) => (
               <div class="w-8 h-8 rounded bg-green-500 hover:border-2 hover:border-black"></div>
             </a>
           </li>
-    :
-    ""
+          :
+          ""
       }
-    <li class="flex-grow"></li>
-    <li>
-      <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/"> Home </a>
-    </li>
-    <li>
-      <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/connect"> Connect </a>
-    </li>
+      <li class="flex-grow"></li>
+      <li>
+        <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/"> Home </a>
+      </li>
+      <li>
+        <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/connect"> Connect </a>
+      </li>
 
-    {
-      props.authenticated ?
-        <>
-          <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/create"> Create </a></li>
-          <li> <a hx-refresh class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" hx-post="/signout" hx-target="body"> Sign Out </a> </li>
-        </>
-        :
-        <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/signin"> Sign In </a> </li>
-    }
-  </ul>
+      {
+        props.authenticated ?
+          <>
+            <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/create"> Create </a></li>
+            <li> <a hx-refresh class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" hx-post="/signout" hx-target="body"> Sign Out </a> </li>
+          </>
+          :
+          <li> <a class="p-2 rounded bg-blue-600 hover:bg-blue-800 text-white" href="/signin"> Sign In </a> </li>
+      }
+    </ul>
   </nav >
 )
 
@@ -79,7 +79,7 @@ export const Preview = (props: PreviewElements) => (
   <div class={class_sanitizer("border shadow p-8 rounded-md ", props.class)}>
     <h2 class="text-xl font-semibold"> {props.title} </h2>
     <h3 class="text-md text-gray-700"> By {props.author} </h3>
-    <p class="text-sm text-gray-400"> {props.description} </p>
+    <p class="text-sm text-gray-400 sm:hidden md:hidden"> {props.description} </p>
   </div>
 )
 
@@ -196,12 +196,12 @@ export const PostEditableView = (props: Posts) => (
     </h3>
     <p class="text-sm text-gray-700"> {props.description} </p>
     <div class="flex flex-row gap-2 items-stretch">
-      <a class="bg-black text-white hover:bg-red-500 p-2 basis-1/2 text-center" href="/connect"> Back </a>
+      <a class="bg-black text-white hover:bg-blue-500 p-2 basis-1/2 text-center" href={`/connect/${props.id}`}> View </a>
       <button
         hx-delete={`/profile/${props.id}`}
         hx-target="closest section"
         hx-swap="outerHTML"
-        class="bg-black text-white hover:bg-green-500 p-2 basis-1/2">
+        class="bg-black text-white hover:bg-red-500 p-2 basis-1/2">
         Delete
       </button>
     </div>

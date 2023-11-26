@@ -31,3 +31,10 @@ Elysia: I had used Hono previously, and wanted to see what the other backend fra
 
 HTMX: Makes development feel smooth and easy. Its a very simple library that cuts out more frontend code than I could imagine.
 
+
+## Tasks (So I don't forget what I need to implement)
+
+- [ ] Commenting
+    - Ability to delete comments
+- [ ] Settings
+    - Profile Pictures?

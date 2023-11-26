@@ -95,5 +95,5 @@ const app = new Elysia()
 app.listen(Bun.env.PORT)
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`
 )
