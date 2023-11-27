@@ -1,0 +1,11 @@
+.title_gradient {
+  background: linear-gradient(in oklch, #0f172a, #374151);
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle_gradient {
+  background: linear-gradient(in oklab, #eef, #7dd3fc);
+  background-clip: text;
+  color: transparent;
+}
