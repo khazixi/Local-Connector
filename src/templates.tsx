@@ -1,10 +1,11 @@
-import { Posts } from "./schema"
+import { Comments, Posts } from "./schema"
 
 export const Base = (props: JSX.ElementChildrenAttribute) => (
   <html lang='en'>
     <head>
       <title> Local Connector </title>
       <link rel="stylesheet" href="/main.css" />
+      <link rel="stylesheet" href="/gradients.css" />
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       <script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
     </head>
@@ -66,9 +67,11 @@ type PreviewElements = {
 }
 
 type PostElements = PreviewElements & {
+  id: number
   image: string | null
   tag: string | null
   date: Date
+  authenticated: boolean
 } & JSX.ElementChildrenAttribute
 
 const class_sanitizer = (...classes: Array<string | undefined>) => {
@@ -103,9 +106,16 @@ export const PostView = (props: PostElements) => (
       {Intl.DateTimeFormat('en-US').format(props.date)}
     </h3>
     <p class="text-sm text-gray-700"> {props.description} </p>
-    <div class="flex flex-row gap-2 items-stretch">
-      <a class="bg-black text-white hover:bg-red-500 p-2 basis-1/2 text-center" href="/connect"> Back </a>
-      <button class="bg-black text-white hover:bg-green-500 p-2 basis-1/2"> Comment </button>
+    <div class={`flex flex-row gap-2 items-stretch ${(props.children != null) ? 'border-bottom border' : ''}`}>
+      <a class="bg-black text-white hover:bg-red-500 p-2 flex-grow text-center" href="/connect"> Back </a>
+      {
+        (props.authenticated) ?
+          <a
+            href={`/comment/${props.id}`}
+            class="bg-black text-center text-white hover:bg-green-500 p-2 basis-1/2"> Comment </a>
+          :
+          ""
+      }
     </div>
     {props.children}
   </div>
@@ -205,5 +215,12 @@ export const PostEditableView = (props: Posts) => (
         Delete
       </button>
     </div>
+  </section>
+)
+
+export const CommentView = (props: Comments) => (
+  <section class="p-1 border">
+    <p> {props.description} </p>
+    {props.image ? <img src={`data:${props.type};base64,` + Buffer.from(props.image).toString('base64')} /> : ""}
   </section>
 )

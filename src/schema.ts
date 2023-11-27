@@ -54,3 +54,4 @@ export const tokens = sqliteTable('tokens', {
 })
 
 export type Posts = InferSelectModel<typeof posts>
+export type Comments = InferSelectModel<typeof comments>

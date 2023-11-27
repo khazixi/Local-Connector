@@ -1,7 +1,7 @@
 import Elysia, { t } from "elysia";
-import { Base, BaseLayout, Nav, PostPreview, PostView, Preview } from '../templates'
+import { Base, BaseLayout, CommentView, Nav, PostPreview, PostView, Preview } from '../templates'
 import { db } from "../db";
-import { posts } from "../schema";
+import { comments, posts } from "../schema";
 import { eq } from "drizzle-orm";
 import { auth } from "../auth";
 
@@ -58,6 +58,11 @@ conn.get('/:id', async (c) => {
     .from(posts)
     .where(eq(posts.id, c.params.id))
 
+  const comment = await db
+    .select()
+    .from(comments)
+    .where(eq(comments.parent_id, c.params.id))
+
   let image
   if (!d.image) image = null
   else image = Buffer.from(d.image).toString('base64')
@@ -67,13 +72,19 @@ conn.get('/:id', async (c) => {
       <BaseLayout>
         <Nav authenticated={authenticated} />
         <PostView
+          authenticated={authenticated}
+          id={d.id}
           tag={d.type}
           image={image}
           title={d.title}
           author={d.author}
           description={d.description}
           date={new Date('3/11/04')}
-        />
+        >
+          {
+            comment.map(v => <CommentView {...v} />)
+          }
+        </PostView>
       </BaseLayout>
     </Base>
   )

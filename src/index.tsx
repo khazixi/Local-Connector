@@ -7,6 +7,7 @@ import { signin } from './routes/signin'
 import { create } from './routes/create';
 import { signout } from './routes/signout';
 import { profile } from './routes/profile';
+import { comment } from './routes/comment';
 import { auth } from "./auth";
 
 const app = new Elysia()
@@ -17,6 +18,7 @@ const app = new Elysia()
   .use(create)
   .use(signout)
   .use(profile)
+  .use(comment)
   .onError(({ error, code, set }) => {
     set.headers['content-type'] = 'text/html'
     return (<Base>
@@ -37,12 +39,15 @@ const app = new Elysia()
         <BaseLayout>
           <Nav authenticated={authenticated}></Nav>
           <div>
-            <h1 class="text-8xl font-extrabold my-8 drop-shadow-lg"> Local Connector </h1>
+            <h1 
+              class="text-8xl font-extrabold my-8 drop-shadow-lg title_gradient">
+              Local Connector 
+            </h1>
             <h3 class="text-gray-400"> Connect with Your Local Area </h3>
           </div>
 
           <div class="w-full p-8 drop-shadow-md">
-            <h2 class="text-6xl font-bold mb-8 w-7/12"> New Ways to Connect! </h2>
+            <h2 class="text-6xl font-bold mb-8 p-1 w-7/12 title_gradient"> New Ways to Connect! </h2>
 
             <p class="text-xl text-gray-600 w-7/12">
               In the modern world we are <b class="font-semibold text-gray-900"> Disconnected </b> from the people around us.
@@ -55,7 +60,7 @@ const app = new Elysia()
 
 
           <div class="grid grid-cols-3 gap-20 bg-blue-700 justify-center w-full h-96 p-4">
-            <h2 class="text-5xl text-white font-bold drop-shadow col-span-3 text-center mt-8"> View Events </h2>
+            <h2 class="text-5xl text-white font-bold drop-shadow col-span-3 text-center mt-8 subtitle_gradient"> View Events </h2>
             <Preview
               class="rotate-[351deg] bg-white h-32"
               title="Business Opens"
@@ -79,7 +84,7 @@ const app = new Elysia()
           </div>
 
           <div class="w-full flex flex-col items-center gap-8">
-            <h3 class='text-2xl drop-shadow-sm'> Start Connecting to your local community </h3>
+            <h3 class='text-2xl drop-shadow-sm font-semibold'> Start Connecting to your local community </h3>
             <a class="text-xl bg-blue-600 text-white p-2 rounded-md shadow-md hover:bg-blue-700" href="/connect"> Here! </a>
           </div>
 

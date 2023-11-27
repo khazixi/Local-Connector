@@ -29,9 +29,13 @@ export const profile = new Elysia({ prefix: '/profile' })
         <BaseLayout>
           <Nav authenticated={authenticated} />
           <h1 class="text-6xl font-bold drop-shadow-md">Profile</h1>
-          {
-            post.map(v => <PostEditableView {...v} />)
-          }
+
+          <h2 class="text-3xl font-bold drop-shadow-md">Manage Posts</h2>
+          <section class="grid grid-cols-2 gap-8">
+            {
+              post.map(v => <PostEditableView {...v} />)
+            }
+          </section>
         </BaseLayout>
       </Base>
     )
